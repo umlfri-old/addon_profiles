@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ElementType id="Class (metaclass)" xmlns="http://umlfri.kst.fri.uniza.sk/xmlschema/metamodel.xsd">
+    <Icon path="icons/class.png" />
+    <Domain id="class_metaclass" identity="name" />
+    <Connections>
+        <Item value="Extension" allowrecursive="0"/>
+    </Connections>
+    <Appearance>
+        <Shadow padding="3" color="#cfg.Styles.Element.ShadowColor">
+            <Rectangle fill="#cfg.Styles.Element.FillColor" border="#cfg.Styles.Element.LineColor">
+                <Align align="center, center">
+                    <HBox>
+                        <Align align="center">
+                            <VBox>
+                                <TextBox text="&#171;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                <TextBox text="metaclass" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                <TextBox text="&#187;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                            </VBox>
+                        </Align>
+                        <Align align="center">
+                            <TextBox text="Class" font="#cfg.Styles.Element.NameTextFont" color="#cfg.Styles.Element.NameTextColor"/>
+                        </Align>
+                    </HBox>
+                </Align>
+            </Rectangle>
+        </Shadow>
+    </Appearance>
+</ElementType>
