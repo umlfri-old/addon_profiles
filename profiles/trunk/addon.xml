@@ -19,6 +19,10 @@
         UML includes a set of graphical notation techniques to create
         abstract models of specific systems.
     </Description>
+
+    <Dependencies>
+        <AddOn uri="urn:umlfri.org:starters:python" />
+    </Dependencies>
     
     <Composite>
         <Metamodel>
