@@ -12,6 +12,21 @@
 	        <Value>Public</Value>
 		</Enum>
     </Attribute>
+    <Attribute id="applied_profiles" name="Applied profiles" hidden="true">
+        <List>
+            <Domain>
+                <Attribute id="package_id" name="Package Identifier">
+                    <Str />
+                </Attribute>
+                <Attribute id="profile_name" name="Profile name">
+                    <Str />
+                </Attribute>
+                <Attribute id="modification_bundle" name="Modification bundle">
+                    <Str />
+                </Attribute>
+            </Domain>
+        </List>
+    </Attribute>
     <Attribute id="abstract" name="Abstract" >
 		<Bool default="False"/>
 	</Attribute>
