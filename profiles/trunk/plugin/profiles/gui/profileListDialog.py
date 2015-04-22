@@ -103,7 +103,7 @@ class CProfileListDialog(object):
     def addProfileMenuItem_activate_event_handler(self, widget):
         packageElement = self.__GetSelectedProjectElement()
 
-        availableProfiles = self.__profileManager.GetAvailableProfiles(self.projectRoot)
+        availableProfiles = self.__profileManager.GetAvailableProfiles(self.projectRoot).itervalues()
         profile = CSelectProfilesDialog().ChooseProfile(availableProfiles)
         if profile is None:
             return

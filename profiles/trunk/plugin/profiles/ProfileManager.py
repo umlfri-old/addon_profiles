@@ -7,4 +7,4 @@ class CProfileManager(object):
 
     def GetAvailableProfiles(self, packageElement):
         profilePackages = self.__profilePackageProcessor.ProcessPackage(packageElement)
-        return profilePackages
+        return {p.GetUID(): p for p in profilePackages}
