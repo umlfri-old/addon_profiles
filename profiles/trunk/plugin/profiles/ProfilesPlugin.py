@@ -1,10 +1,11 @@
-from gui import CProfileListDialog
+from AppliedProfileEditor import CAppliedProfileEditor
 
 
 class CProfilesPlugin(object):
 
     def __init__(self, interface):
         self.__interface = interface
+        self.__appliedProfileEditor = CAppliedProfileEditor(interface)
 
         self.__interface.add_notification('project-opened', self.__OnProjectOpened)
 
@@ -24,10 +25,7 @@ class CProfilesPlugin(object):
     def __CreateToolbarButtons(self):
         self.__changeAppliedProfilesButton = self.__interface.gui_manager.button_bar.add_button(
             'ChangeAppliedProfiles',
-            lambda *a: self.__ShowProfileListDialog(),
+            lambda *a: self.__appliedProfileEditor.EditProfiles(),
             -1,
             'Profiles'
         )
-
-    def __ShowProfileListDialog(self):
-        CProfileListDialog(self.__interface.project.root).Show()
