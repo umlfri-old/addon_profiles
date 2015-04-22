@@ -23,12 +23,12 @@ class CSelectProfilesDialog(object):
         result = self.__dialog.run()
         self.__dialog.hide()
         if result == 0:
-            return None
+            return self.__GetSelectedProfile()
         else:
             return None
 
     def __GetSelectedProfile(self):
-        iter = self.__profileListStore.get_selection().get_selected()[1]
+        iter = self.__tvProfiles.get_selection().get_selected()[1]
         if iter is None:
             return None
         profile, = self.__profileListStore.get(iter, 1)
