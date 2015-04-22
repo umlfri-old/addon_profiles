@@ -8,7 +8,7 @@ class CProfilePackage(object):
         return self.packageElement
 
     def GetName(self):
-        return self.packageElement.GetName()
+        return self.packageElement.name
 
     def GetStereotypes(self):
         return self.stereotypes
