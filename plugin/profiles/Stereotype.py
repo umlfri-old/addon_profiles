@@ -7,4 +7,4 @@ class CStereotype(object):
         return self.stereotypeElement
 
     def GetName(self):
-        return self.stereotypeElement.GetName()
+        return self.stereotypeElement.name
