@@ -1,3 +1,6 @@
+from ..gui import CProfileListDialog
+
+
 class CProfilesPlugin(object):
 
     def __init__(self, interface):
@@ -27,4 +30,4 @@ class CProfilesPlugin(object):
         )
 
     def __ShowProfileListDialog(self):
-        pass
+        CProfileListDialog(self.__interface.project.root).Show()

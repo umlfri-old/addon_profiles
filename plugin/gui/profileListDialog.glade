@@ -2,12 +2,20 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkTreeStore" id="projectTreeStore">
+    <columns>
+      <!-- column-name elementName -->
+      <column type="gchararray"/>
+      <!-- column-name elementType -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="profileListDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Profiles</property>
     <property name="modal">True</property>
-    <property name="default_width">300</property>
+    <property name="default_width">600</property>
     <property name="default_height">200</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
@@ -57,30 +65,85 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow2">
+          <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">automatic</property>
-            <property name="vscrollbar_policy">automatic</property>
-            <property name="shadow_type">in</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">10</property>
             <child>
-              <object class="GtkTreeView" id="tvProfiles">
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="model">profileListStore</property>
-                <signal name="button-press-event" handler="tvProfiles_button_press_event" swapped="no"/>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkTreeViewColumn" id="tvcProfilePackage">
-                    <property name="title" translatable="yes">Profile package</property>
+                  <object class="GtkTreeView" id="tvProjectTree">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">projectTreeStore</property>
+                    <property name="headers_visible">False</property>
+                    <property name="headers_clickable">False</property>
+                    <property name="search_column">0</property>
                     <child>
-                      <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
+                      <object class="GtkTreeViewColumn" id="tvcElement">
+                        <property name="title" translatable="yes">Element</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="elementNameRenderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                        <child>
+                          <object class="GtkCellRendererText" id="elementTypeRenderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
                     </child>
                   </object>
                 </child>
               </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow2">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="tvProfiles">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">profileListStore</property>
+                    <property name="headers_clickable">False</property>
+                    <property name="search_column">0</property>
+                    <signal name="button-press-event" handler="tvProfiles_button_press_event" swapped="no"/>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="tvcProfilePackage">
+                        <property name="title" translatable="yes">Profile package</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
           <packing>

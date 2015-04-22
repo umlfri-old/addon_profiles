@@ -7,7 +7,8 @@ class CProfileListDialog(object):
 
     gladeFile = os.path.join(os.path.dirname(__file__), "profileListDialog.glade")
 
-    def __init__(self):
+    def __init__(self, projectRoot):
+        self.projectRoot = projectRoot
 
         self.wTree = gtk.Builder()
         self.wTree.add_from_file(self.gladeFile)
@@ -18,6 +19,9 @@ class CProfileListDialog(object):
 
         self.wTree.connect_signals(signals)
 
+        self.__tvProjectTree = self.wTree.get_object('tvProjectTree')
+        self.__projectTreeStore = self.wTree.get_object('projectTreeStore')
+
         self.__dialog = self.wTree.get_object('profileListDialog')
         self.__tvProfiles = self.wTree.get_object('tvProfiles')
         self.__profileList = self.__tvProfiles.get_model()
@@ -26,7 +30,7 @@ class CProfileListDialog(object):
         self.__removeProfileMenuItem = self.wTree.get_object('removeProfileMenuItem')
 
     def Show(self):
-        self.__FillProfiles()
+        self.__FillProjectTree()
 
         result = self.__dialog.run()
         self.__dialog.hide()
@@ -34,6 +38,17 @@ class CProfileListDialog(object):
             return None
         else:
             return None
+
+    def __FillProjectTree(self):
+        self.__projectTreeStore.clear()
+        self.__FillProjectTreeInternal(self.projectRoot, None)
+
+    def __FillProjectTreeInternal(self, root, parent):
+        parent = self.__projectTreeStore.append(parent)
+        self.__projectTreeStore.set(parent, 0, root.GetName(), 1, root)
+
+        for element in root.children:
+            self.__FillProjectTreeInternal(element, parent)
 
     def __FillProfiles(self):
         profiles = ['prof1', 'test', 'ppp']
