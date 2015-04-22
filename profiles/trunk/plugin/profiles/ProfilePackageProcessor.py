@@ -11,7 +11,7 @@ class CProfilePackageProcessor(object):
         profiles = []
         stereotypes = []
         self.__DiscoverProfiles(element, profiles, stereotypes)
-        self.__CreateProfilePackages(profiles, stereotypes)
+        return self.__CreateProfilePackages(profiles, stereotypes)
 
     def __DiscoverProfiles(self, element, profiles, stereotypes):
         packageStereotypes = []
@@ -23,20 +23,21 @@ class CProfilePackageProcessor(object):
                 self.__DiscoverProfiles(child, profiles, stereotypes)
                 childProfiles.append(child)
             elif childType == self.StereotypeType:
-                stereotypes.append(element)
+                stereotypes.append(child)
                 packageStereotypes.append(child)
 
-        profiles.append((element, packageStereotypes, childProfiles))
+        if element.type.name == self.PackageType and len(packageStereotypes) > 0:
+            profiles.append((element, packageStereotypes, childProfiles))
 
     def __CreateProfilePackages(self, profiles, stereotypes):
         stereotypesDict = {}
         profilePackages = []
 
         for element in stereotypes:
-            stereotypesDict[element] = CStereotype(element)
+            stereotypesDict[element.uid] = CStereotype(element)
 
         for element, stereotypeElements, childProfiles in profiles:
-            packageStereotypes = [stereotypesDict[s] for s in stereotypeElements]
+            packageStereotypes = [stereotypesDict[s.uid] for s in stereotypeElements]
             profile = CProfilePackage(element, packageStereotypes)
             profilePackages.append(profile)
 
