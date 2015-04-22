@@ -23,6 +23,3 @@ class CProfileManager(object):
                 appliedProfiles.append(application.GetProfileName())
 
         return appliedProfiles
-
-    def IsPackage(self, element):
-        return element.type.name == KnownElementTypes.PackageType

@@ -18,15 +18,14 @@ class CProfilePackageProcessor(object):
         childProfiles = []
 
         for child in element.children:
-            childType = child.type.name
-            if childType == KnownElementTypes.PackageType:
+            if KnownElementTypes.IsPackage(child):
                 self.__DiscoverProfiles(child, profiles, stereotypes)
                 childProfiles.append(child)
-            elif childType == KnownElementTypes.StereotypeType:
+            elif KnownElementTypes.IsStereotype(child):
                 stereotypes.append(child)
                 packageStereotypes.append(child)
 
-        if element.type.name == KnownElementTypes.PackageType and len(packageStereotypes) > 0:
+        if KnownElementTypes.IsPackage(element) and len(packageStereotypes) > 0:
             profiles.append((element, packageStereotypes, childProfiles))
 
     def __CreateProfilePackages(self, profiles, stereotypes):
