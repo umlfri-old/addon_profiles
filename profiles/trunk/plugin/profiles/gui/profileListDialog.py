@@ -1,11 +1,15 @@
 import os
 from imports.gtk2 import gtk, gobject
+from ..ProfileManager import CProfileManager
+from SelectProfilesDialog import CSelectProfilesDialog
 from util import FixTreeViewSelectionOnRightClick
 
 
 class CProfileListDialog(object):
 
     gladeFile = os.path.join(os.path.dirname(__file__), "profileListDialog.glade")
+
+    __profileManager = CProfileManager()
 
     def __init__(self, projectRoot):
         self.projectRoot = projectRoot
@@ -59,10 +63,12 @@ class CProfileListDialog(object):
             self.__FillProjectTreeInternal(element, parent)
 
     def __FillProfiles(self, element):
-        pass
+        self.__profileListStore.clear()
 
-        # for profile in profiles:
-        #     self.__profileList.append([profile, None])
+        profiles = self.__packageProfiles.get(element, [])
+
+        for profile in profiles:
+            self.__profileList.append([profile.GetName(), profile])
 
     def tvProfiles_button_press_event_handler(self, widget, event):
         if event.button == 3:
@@ -95,7 +101,18 @@ class CProfileListDialog(object):
             self.__FillProfiles(element)
 
     def addProfileMenuItem_activate_event_handler(self, widget):
-        pass
+        packageElement = self.__GetSelectedProjectElement()
+
+        availableProfiles = self.__profileManager.GetAvailableProfiles(self.projectRoot)
+        profile = CSelectProfilesDialog().ChooseProfile(availableProfiles)
+        if profile is None:
+            return
+
+        self.__AddProfiles(packageElement, [profile])
+
+    def __AddProfiles(self, package, profiles):
+        self.__packageProfiles.setdefault(package, set()).update(profiles)
+        self.__FillProfiles(package)
 
     def removeProfileMenuItem_activate_event_handler(self, widget):
         pass
