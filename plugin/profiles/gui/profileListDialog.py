@@ -111,8 +111,19 @@ class CProfileListDialog(object):
         self.__AddProfiles(packageElement, [profile])
 
     def __AddProfiles(self, package, profiles):
-        self.__packageProfiles.setdefault(package, set()).update(profiles)
+        self.__GetPackageProfiles(package).update(profiles)
         self.__FillProfiles(package)
 
     def removeProfileMenuItem_activate_event_handler(self, widget):
-        pass
+        iter = self.__tvProfiles.get_selection().get_selected()[1]
+        if iter is None:
+            return None
+        profile, = self.__profileListStore.get(iter, 1)
+        self.__profileListStore.remove(iter)
+        self.__GetPackageProfiles().remove(profile)
+
+    def __GetPackageProfiles(self, package=None):
+        if package is None:
+            package = self.__GetSelectedProjectElement()
+
+        return self.__packageProfiles.setdefault(package, set())
