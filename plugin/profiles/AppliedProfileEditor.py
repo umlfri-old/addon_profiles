@@ -10,4 +10,6 @@ class CAppliedProfileEditor(object):
         self.__interface = interface
 
     def EditProfiles(self):
-        CProfileListDialog(self.__interface.project.root).Show()
+        projectRoot = self.__interface.project.root
+        availableProfiles = self.__profileManager.GetAvailableProfiles(projectRoot)
+        CProfileListDialog(projectRoot, availableProfiles.itervalues()).Show()
