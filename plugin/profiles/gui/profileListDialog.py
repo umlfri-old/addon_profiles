@@ -14,7 +14,9 @@ class CProfileListDialog(object):
         self.wTree.add_from_file(self.gladeFile)
 
         signals = {
-            'tvProfiles_button_press_event': self.tvProfiles_button_press_event_handler
+            'tvProfiles_button_press_event': self.tvProfiles_button_press_event_handler,
+            'addProfileMenuItem_activate_event': self.addProfileMenuItem_activate_event_handler,
+            'removeProfileMenuItem_activate_event': self.removeProfileMenuItem_activate_event_handler,
         }
 
         self.wTree.connect_signals(signals)
@@ -22,13 +24,18 @@ class CProfileListDialog(object):
         self.__projectTreeStore = gtk.TreeStore(str, str, object)
         self.__tvProjectTree = self.wTree.get_object('tvProjectTree')
         self.__tvProjectTree.set_model(self.__projectTreeStore)
+        self.__tvProjectTree.get_selection().connect('changed', self.tvProjectTree_selection_changed_handler)
 
         self.__dialog = self.wTree.get_object('profileListDialog')
         self.__tvProfiles = self.wTree.get_object('tvProfiles')
+        self.__profileListStore = gtk.ListStore(str, object)
+        self.__tvProfiles.set_model(self.__profileListStore)
         self.__profileList = self.__tvProfiles.get_model()
         self.__profileList.clear()
         self.__profileListPopupMenu = self.wTree.get_object('profileListPopupMenu')
         self.__removeProfileMenuItem = self.wTree.get_object('removeProfileMenuItem')
+
+        self.__packageProfiles = {}
 
     def Show(self):
         self.__FillProjectTree()
@@ -51,10 +58,11 @@ class CProfileListDialog(object):
         for element in root.children:
             self.__FillProjectTreeInternal(element, parent)
 
-    def __FillProfiles(self):
-        profiles = ['prof1', 'test', 'ppp']
-        for profile in profiles:
-            self.__profileList.append([profile])
+    def __FillProfiles(self, element):
+        pass
+
+        # for profile in profiles:
+        #     self.__profileList.append([profile, None])
 
     def tvProfiles_button_press_event_handler(self, widget, event):
         if event.button == 3:
@@ -73,3 +81,21 @@ class CProfileListDialog(object):
         canRemoveProfile = selectedItemsCount > 0
 
         self.__removeProfileMenuItem.set_sensitive(canRemoveProfile)
+
+    def __GetSelectedProjectElement(self):
+        iter = self.__tvProjectTree.get_selection().get_selected()[1]
+        if iter is None:
+            return None
+        element, = self.__projectTreeStore.get(iter, 2)
+        return element
+
+    def tvProjectTree_selection_changed_handler(self, widget):
+        element = self.__GetSelectedProjectElement()
+        if element is not None:
+            self.__FillProfiles(element)
+
+    def addProfileMenuItem_activate_event_handler(self, widget):
+        pass
+
+    def removeProfileMenuItem_activate_event_handler(self, widget):
+        pass
