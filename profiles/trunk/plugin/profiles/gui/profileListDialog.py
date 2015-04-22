@@ -63,12 +63,15 @@ class CProfileListDialog(object):
             self.__FillProjectTreeInternal(element, parent)
 
     def __FillProfiles(self, element):
-        self.__profileListStore.clear()
+        self.__ClearProfileList()
 
         profiles = self.__packageProfiles.get(element, [])
 
         for profile in profiles:
             self.__profileList.append([profile.GetName(), profile])
+
+    def __ClearProfileList(self):
+        self.__profileListStore.clear()
 
     def tvProfiles_button_press_event_handler(self, widget, event):
         if event.button == 3:
@@ -98,7 +101,12 @@ class CProfileListDialog(object):
     def tvProjectTree_selection_changed_handler(self, widget):
         element = self.__GetSelectedProjectElement()
         if element is not None:
-            self.__FillProfiles(element)
+            isPackage = self.__profileManager.IsPackage(element)
+            self.__tvProfiles.set_sensitive(isPackage)
+            if isPackage:
+                self.__FillProfiles(element)
+            else:
+                self.__ClearProfileList()
 
     def addProfileMenuItem_activate_event_handler(self, widget):
         packageElement = self.__GetSelectedProjectElement()
