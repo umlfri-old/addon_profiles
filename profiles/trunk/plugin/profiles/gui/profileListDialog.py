@@ -1,6 +1,5 @@
 import os
 from imports.gtk2 import gtk, gobject
-from ..ProfileManager import CProfileManager
 from SelectProfilesDialog import CSelectProfilesDialog
 from ..ElementTypes import KnownElementTypes
 from util import FixTreeViewSelectionOnRightClick
@@ -9,8 +8,6 @@ from util import FixTreeViewSelectionOnRightClick
 class CProfileListDialog(object):
 
     gladeFile = os.path.join(os.path.dirname(__file__), "profileListDialog.glade")
-
-    __profileManager = CProfileManager()
 
     def __init__(self, projectRoot, availableProfiles):
         self.projectRoot = projectRoot
