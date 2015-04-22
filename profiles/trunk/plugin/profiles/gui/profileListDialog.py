@@ -45,7 +45,7 @@ class CProfileListDialog(object):
 
     def __FillProjectTreeInternal(self, root, parent):
         parent = self.__projectTreeStore.append(parent)
-        self.__projectTreeStore.set(parent, 0, root.GetName(), 1, root)
+        self.__projectTreeStore.set(parent, 0, root.name, 1, root)
 
         for element in root.children:
             self.__FillProjectTreeInternal(element, parent)
