@@ -8,3 +8,6 @@ class CProfileManager(object):
     def GetAvailableProfiles(self, packageElement):
         profilePackages = self.__profilePackageProcessor.ProcessPackage(packageElement)
         return {p.GetUID(): p for p in profilePackages}
+
+    def IsPackage(self, element):
+        return element.type.name == KnownElementTypes.PackageType
