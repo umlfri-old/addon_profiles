@@ -1,5 +1,7 @@
+from ast import literal_eval
 from Stereotype import CStereotype
 from ProfilePackage import CProfilePackage
+from Tag import CTag
 
 
 class CProfilePackageProcessor(object):
@@ -34,7 +36,8 @@ class CProfilePackageProcessor(object):
         profilePackages = []
 
         for element in stereotypes:
-            stereotypesDict[element.uid] = CStereotype(element)
+            tags = self.__CreateTags(element)
+            stereotypesDict[element.uid] = CStereotype(element, tags)
 
         for element, stereotypeElements, childProfiles in profiles:
             packageStereotypes = [stereotypesDict[s.uid] for s in stereotypeElements]
@@ -42,3 +45,8 @@ class CProfilePackageProcessor(object):
             profilePackages.append(profile)
 
         return profilePackages
+
+    @staticmethod
+    def __CreateTags(stereotypeElement):
+        rawTagValues = literal_eval(stereotypeElement.values['tags'])
+        return [CTag(rawTag['name'], rawTag['type']) for rawTag in rawTagValues]
