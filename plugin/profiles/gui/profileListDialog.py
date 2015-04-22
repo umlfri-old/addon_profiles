@@ -2,6 +2,7 @@ import os
 from imports.gtk2 import gtk, gobject
 from ..ProfileManager import CProfileManager
 from SelectProfilesDialog import CSelectProfilesDialog
+from ..ElementTypes import KnownElementTypes
 from util import FixTreeViewSelectionOnRightClick
 
 
@@ -101,7 +102,7 @@ class CProfileListDialog(object):
     def tvProjectTree_selection_changed_handler(self, widget):
         element = self.__GetSelectedProjectElement()
         if element is not None:
-            isPackage = self.__profileManager.IsPackage(element)
+            isPackage = KnownElementTypes.IsPackage(element)
             self.__tvProfiles.set_sensitive(isPackage)
             if isPackage:
                 self.__FillProfiles(element)
