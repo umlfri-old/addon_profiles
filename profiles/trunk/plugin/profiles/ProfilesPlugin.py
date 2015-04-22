@@ -1,4 +1,4 @@
-from ..gui import CProfileListDialog
+from gui import CProfileListDialog
 
 
 class CProfilesPlugin(object):
