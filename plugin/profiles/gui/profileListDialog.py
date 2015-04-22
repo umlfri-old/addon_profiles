@@ -19,8 +19,9 @@ class CProfileListDialog(object):
 
         self.wTree.connect_signals(signals)
 
+        self.__projectTreeStore = gtk.TreeStore(str, str, object)
         self.__tvProjectTree = self.wTree.get_object('tvProjectTree')
-        self.__projectTreeStore = self.wTree.get_object('projectTreeStore')
+        self.__tvProjectTree.set_model(self.__projectTreeStore)
 
         self.__dialog = self.wTree.get_object('profileListDialog')
         self.__tvProfiles = self.wTree.get_object('tvProfiles')
@@ -45,7 +46,7 @@ class CProfileListDialog(object):
 
     def __FillProjectTreeInternal(self, root, parent):
         parent = self.__projectTreeStore.append(parent)
-        self.__projectTreeStore.set(parent, 0, root.name, 1, root)
+        self.__projectTreeStore.set(parent, 0, root.name, 1, root.type.name, 2, root)
 
         for element in root.children:
             self.__FillProjectTreeInternal(element, parent)
