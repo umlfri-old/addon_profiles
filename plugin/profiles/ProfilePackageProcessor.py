@@ -2,12 +2,10 @@ from ast import literal_eval
 from Stereotype import CStereotype
 from ProfilePackage import CProfilePackage
 from Tag import CTag
+from ElementTypes import KnownElementTypes
 
 
 class CProfilePackageProcessor(object):
-
-    StereotypeType = 'Stereotype'
-    PackageType = 'Package'
 
     def ProcessPackage(self, element):
         profiles = []
@@ -21,14 +19,14 @@ class CProfilePackageProcessor(object):
 
         for child in element.children:
             childType = child.type.name
-            if childType == self.PackageType:
+            if childType == KnownElementTypes.PackageType:
                 self.__DiscoverProfiles(child, profiles, stereotypes)
                 childProfiles.append(child)
-            elif childType == self.StereotypeType:
+            elif childType == KnownElementTypes.StereotypeType:
                 stereotypes.append(child)
                 packageStereotypes.append(child)
 
-        if element.type.name == self.PackageType and len(packageStereotypes) > 0:
+        if element.type.name == KnownElementTypes.PackageType and len(packageStereotypes) > 0:
             profiles.append((element, packageStereotypes, childProfiles))
 
     def __CreateProfilePackages(self, profiles, stereotypes):
