@@ -12,8 +12,9 @@ class CProfileListDialog(object):
 
     __profileManager = CProfileManager()
 
-    def __init__(self, projectRoot):
+    def __init__(self, projectRoot, availableProfiles):
         self.projectRoot = projectRoot
+        self.availableProfiles = availableProfiles
 
         self.wTree = gtk.Builder()
         self.wTree.add_from_file(self.gladeFile)
@@ -112,8 +113,7 @@ class CProfileListDialog(object):
     def addProfileMenuItem_activate_event_handler(self, widget):
         packageElement = self.__GetSelectedProjectElement()
 
-        availableProfiles = self.__profileManager.GetAvailableProfiles(self.projectRoot).itervalues()
-        profile = CSelectProfilesDialog().ChooseProfile(availableProfiles)
+        profile = CSelectProfilesDialog().ChooseProfile(self.availableProfiles)
         if profile is None:
             return
 
