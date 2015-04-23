@@ -1,0 +1,11 @@
+<Domain id="metaclass" xmlns="http://umlfri.kst.fri.uniza.sk/xmlschema/metamodel.xsd" >
+    <Attribute id="name" name="Name" hidden="true">
+		<Str/>
+	</Attribute>
+    <Attribute id="metaclass_name" name="Metaclass name">
+        <Str/>
+    </Attribute>
+    <Attribute id="note" name="Note" >
+		<Text/>
+	</Attribute>
+</Domain>
