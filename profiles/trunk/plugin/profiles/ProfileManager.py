@@ -22,7 +22,9 @@ class CProfileManager(object):
         return appliedProfiles
 
     def RemoveProfiles(self, profileApplications):
-        pass
+        for element, applications in profileApplications.iteritems():
+            bundles = [a.GetModificationBundleName() for a in applications]
+            element.revert_modifications(bundles)
 
     def UpdateProfileApplications(self, profileApplications, profiles):
         pass
