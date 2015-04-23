@@ -46,10 +46,10 @@ class CApplyProfilesExecutor(object):
             newProfiles, unchangedProfiles, deletedProfiles = \
                 self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
 
-            deletedProfileApplications = {self.__profileApplications[element] for element in deletedProfiles.iterkeys()}
+            deletedProfileApplications = {element: self.__profileApplications[element] for element in deletedProfiles.iterkeys()}
             self.__profileManager.RemoveProfiles(deletedProfileApplications)
 
-            unchangedProfileApplications = {self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
+            unchangedProfileApplications = {element: self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
             self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
             self.__profileManager.ApplyProfiles(newProfiles)
