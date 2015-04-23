@@ -45,10 +45,7 @@ class CProfileListDialog(object):
 
         result = self.__dialog.run()
         self.__dialog.hide()
-        if result == 0:
-            return None
-        else:
-            return None
+        return result == 0
 
     def __FillProjectTree(self):
         self.__projectTreeStore.clear()
