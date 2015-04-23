@@ -1,10 +1,21 @@
 from ProfileManager import CProfileManager
 from ProfileApplicationDiscovery import CProfileApplicationDiscovery
+from AppliedProfilesDiffCalculator import CAppliedProfilesDiffCalculator
+
+
+class ApplyProfilesTransactionError(Exception):
+    pass
+
+
+class NewProfilesNotSpecifiedError(ApplyProfilesTransactionError):
+    pass
+
 
 class CApplyProfilesTransaction(object):
 
     __profileManager = CProfileManager()
     __profileApplicationDiscovery = CProfileApplicationDiscovery()
+    __appliedProfilesDiffCalculator = CAppliedProfilesDiffCalculator()
 
     def __init__(self, projectRoot):
         self.__availableProfiles = self.__profileManager.GetAvailableProfiles(projectRoot)
@@ -27,4 +38,19 @@ class CApplyProfilesTransaction(object):
         self.__newProfiles = profiles
 
     def ApplyProfiles(self):
-        pass
+        if self.__newProfiles is None:
+            raise NewProfilesNotSpecifiedError()
+
+        try:
+            newProfiles, unchangedProfiles, deletedProfiles = \
+                self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
+
+            deletedProfileApplications = {self.__profileApplications[None] for element in deletedProfiles.iterkeys()}
+            self.__profileManager.RemoveProfiles(deletedProfileApplications)
+
+            unchangedProfileApplications = {self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
+            self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
+
+            self.__profileManager.ApplyProfiles(newProfiles)
+        except (RuntimeError, TypeError) as error:
+            raise ApplyProfilesTransactionError("Error occured while changing profile applications", error)
