@@ -3,15 +3,15 @@ from ProfileApplicationDiscovery import CProfileApplicationDiscovery
 from AppliedProfilesDiffCalculator import CAppliedProfilesDiffCalculator
 
 
-class ApplyProfilesTransactionError(Exception):
+class ApplyProfilesExecutorError(Exception):
     pass
 
 
-class NewProfilesNotSpecifiedError(ApplyProfilesTransactionError):
+class NewProfilesNotSpecifiedError(ApplyProfilesExecutorError):
     pass
 
 
-class CApplyProfilesTransaction(object):
+class CApplyProfilesExecutor(object):
 
     __profileManager = CProfileManager()
     __profileApplicationDiscovery = CProfileApplicationDiscovery()
@@ -53,4 +53,4 @@ class CApplyProfilesTransaction(object):
 
             self.__profileManager.ApplyProfiles(newProfiles)
         except (RuntimeError, TypeError) as error:
-            raise ApplyProfilesTransactionError("Error occured while changing profile applications", error)
+            raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)

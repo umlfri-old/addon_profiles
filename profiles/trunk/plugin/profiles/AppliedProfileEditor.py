@@ -1,5 +1,5 @@
 from gui import CProfileListDialog
-from ApplyProfilesTransaction import CApplyProfilesTransaction
+from ApplyProfilesExecutor import CApplyProfilesExecutor
 
 
 class CAppliedProfileEditor(object):
@@ -10,8 +10,8 @@ class CAppliedProfileEditor(object):
     def EditProfiles(self):
         projectRoot = self.__interface.project.root
 
-        applyProfilesTransaction = CApplyProfilesTransaction(projectRoot)
+        applyProfilesExecutor = CApplyProfilesExecutor(projectRoot)
 
-        appliedProfiles = applyProfilesTransaction.GetCurrentProfiles()
-        availableProfiles = applyProfilesTransaction.GetAvailableProfiles()
+        appliedProfiles = applyProfilesExecutor.GetCurrentProfiles()
+        availableProfiles = applyProfilesExecutor.GetAvailableProfiles()
         CProfileListDialog(projectRoot, appliedProfiles, availableProfiles).Show()
