@@ -11,12 +11,12 @@ class CProfileManager(object):
         return {p.GetUID(): p for p in profilePackages}
 
     def GetAppliedProfiles(self, profileApplications, availableProfiles):
-        appliedProfiles = []
+        appliedProfiles = set()
         
         for application in profileApplications:
             if application.GetProfilePackageID() in availableProfiles:
-                appliedProfiles.append(availableProfiles[application.GetProfilePackageID()])
+                appliedProfiles.add(availableProfiles[application.GetProfilePackageID()])
             else:
-                appliedProfiles.append(COrphanedProfilePackage(application))
+                appliedProfiles.add(COrphanedProfilePackage(application))
 
         return appliedProfiles
