@@ -53,5 +53,5 @@ class CApplyProfilesExecutor(object):
             self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
             self.__profileManager.ApplyProfiles(newProfiles)
-        except (RuntimeError, TypeError) as error:
+        except Exception as error:
             raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
