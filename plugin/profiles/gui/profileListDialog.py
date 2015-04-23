@@ -9,7 +9,7 @@ class CProfileListDialog(object):
 
     gladeFile = os.path.join(os.path.dirname(__file__), "profileListDialog.glade")
 
-    def __init__(self, projectRoot, availableProfiles):
+    def __init__(self, projectRoot, appliedProfiles, availableProfiles):
         self.projectRoot = projectRoot
         self.availableProfiles = availableProfiles
 
@@ -38,7 +38,7 @@ class CProfileListDialog(object):
         self.__profileListPopupMenu = self.wTree.get_object('profileListPopupMenu')
         self.__removeProfileMenuItem = self.wTree.get_object('removeProfileMenuItem')
 
-        self.__packageProfiles = {}
+        self.__packageProfiles = appliedProfiles
 
     def Show(self):
         self.__FillProjectTree()
