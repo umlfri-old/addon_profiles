@@ -1,22 +1,18 @@
 from ProfilePackageProcessor import CProfilePackageProcessor
-from ProfileApplicationExtractor import CProfileApplicationExtractor
-from ElementTypes import KnownElementTypes
 
 
 class CProfileManager(object):
 
     __profilePackageProcessor = CProfilePackageProcessor()
-    __profileApplicationExtractor = CProfileApplicationExtractor()
 
     def GetAvailableProfiles(self, packageElement):
         profilePackages = self.__profilePackageProcessor.ProcessPackage(packageElement)
         return {p.GetUID(): p for p in profilePackages}
 
-    def GetAppliedProfiles(self, package, availableProfiles):
-        applications = self.__profileApplicationExtractor.ExtractApplications(package)
-
+    def GetAppliedProfiles(self, profileApplications, availableProfiles):
         appliedProfiles = []
-        for application in applications:
+        
+        for application in profileApplications:
             if application.GetProfilePackageID() in availableProfiles:
                 appliedProfiles.append(availableProfiles[application.GetProfilePackageID()])
             else:
