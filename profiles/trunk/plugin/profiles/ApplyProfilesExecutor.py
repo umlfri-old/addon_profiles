@@ -33,7 +33,7 @@ class CApplyProfilesExecutor(object):
             yield profile
 
     def GetCurrentProfiles(self):
-        return dict(self.__currentProfiles)
+        return {element: set(profiles) for element, profiles in self.__currentProfiles.iteritems()}
 
     def SetAppliedProfiles(self, profiles):
         self.__newProfiles = profiles
