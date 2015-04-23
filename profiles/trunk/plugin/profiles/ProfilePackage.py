@@ -4,6 +4,9 @@ class CProfilePackage(object):
         self.stereotypes = stereotypes or []
         self.childProfiles = []
 
+    def IsOrphaned(self):
+        return False
+
     def GetUID(self):
         return self.packageElement.uid
 

@@ -1,4 +1,5 @@
 from ProfilePackageProcessor import CProfilePackageProcessor
+from OrphanedProfilePackage import COrphanedProfilePackage
 
 
 class CProfileManager(object):
@@ -16,6 +17,6 @@ class CProfileManager(object):
             if application.GetProfilePackageID() in availableProfiles:
                 appliedProfiles.append(availableProfiles[application.GetProfilePackageID()])
             else:
-                appliedProfiles.append(application.GetProfileName())
+                appliedProfiles.append(COrphanedProfilePackage(application))
 
         return appliedProfiles
