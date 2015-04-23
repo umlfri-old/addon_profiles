@@ -42,16 +42,16 @@ class CApplyProfilesExecutor(object):
         if self.__newProfiles is None:
             raise NewProfilesNotSpecifiedError()
 
-        try:
-            newProfiles, unchangedProfiles, deletedProfiles = \
-                self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
+        # try:
+        newProfiles, unchangedProfiles, deletedProfiles = \
+            self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
 
-            deletedProfileApplications = {element: self.__profileApplications[element] for element in deletedProfiles.iterkeys()}
-            self.__profileManager.RemoveProfiles(deletedProfileApplications)
+        deletedProfileApplications = {element: self.__profileApplications[element] for element in deletedProfiles.iterkeys()}
+        self.__profileManager.RemoveProfiles(deletedProfileApplications)
 
-            unchangedProfileApplications = {element: self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
-            self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
+        unchangedProfileApplications = {element: self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
+        self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
-            self.__profileManager.ApplyProfiles(newProfiles)
-        except Exception as error:
-            raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
+        self.__profileManager.ApplyProfiles(newProfiles)
+        # except Exception as error:
+        #     raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
