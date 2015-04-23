@@ -1,8 +1,13 @@
 class CStereotype(object):
-    def __init__(self, stereotypeElement, tags, parentStereotype=None):
+    def __init__(self, stereotypeElement, extensions, tags, parentStereotype=None):
         self.stereotypeElement = stereotypeElement
+        self.extensions = extensions
         self.tags = tags
         self.parentStereotype = parentStereotype
+
+    def GetExtensions(self):
+        for element in self.extensions:
+            yield element
 
     def GetStereotypeElement(self):
         return self.stereotypeElement
