@@ -4,3 +4,6 @@ class CExtendedElement(object):
 
     def GetElementType(self):
         return self.elementType
+
+    def GetElementDomain(self):
+        return self.elementType.domain
