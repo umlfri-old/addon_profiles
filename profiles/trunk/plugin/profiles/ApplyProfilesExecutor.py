@@ -22,6 +22,7 @@ class CApplyProfilesExecutor(object):
 
         self.__profileApplications = self.__profileApplicationDiscovery.DiscoverProfileApplications(projectRoot)
         self.__currentProfiles = self.__GetAppliedProfiles(self.__profileApplications, self.__availableProfiles)
+        self.__newProfiles = None
 
     def __GetAppliedProfiles(self, profileApplications, availableProfiles):
         return {package: self.__profileManager.GetAppliedProfiles(applications, availableProfiles)
