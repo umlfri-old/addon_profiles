@@ -20,3 +20,12 @@ class CProfileManager(object):
                 appliedProfiles.add(COrphanedProfilePackage(application))
 
         return appliedProfiles
+
+    def RemoveProfiles(self, profileApplications):
+        pass
+
+    def UpdateProfileApplications(self, profileApplications, profiles):
+        pass
+
+    def ApplyProfiles(self, profiles):
+        pass
