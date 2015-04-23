@@ -5,7 +5,7 @@
     <Special swimlines="0" lifelines="0" />
     <Elements>
         <Item value="Note" />
-        <Item value="Class (metaclass)" />
+        <Item value="Metaclass" />
         <Item value="Stereotype" />
     </Elements>
     <Connections>
