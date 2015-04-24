@@ -1,5 +1,4 @@
 from DomainTypes import KnownAttributes, KnownAttributeModifications, KnownDomainTypes
-from ProfilePackageTransformation import CProfilePackageTransformation
 
 
 class CProfilePackageTransformer(object):
@@ -7,8 +6,7 @@ class CProfilePackageTransformer(object):
     def TransformPackageToModificationBundle(self, profilePackage):
         stereotypesPerMetaclass = self.__GetStereotypesPerMetaclass(profilePackage)
 
-        tagAttributesBundle = {}
-        taggedValuesAndStereotypesBundle = {}
+        modificationBundle = {}
         for extendedElement, stereotypes in stereotypesPerMetaclass.iteritems():
             # TODO: support for inherited tags
 
@@ -19,22 +17,19 @@ class CProfilePackageTransformer(object):
                 appliedStereotypesEnumValues.append(stereotype.GetName())
 
             taggedValuesDomain = KnownDomainTypes.CreateTaggedValuesDomainNameForElement(extendedElement.GetElementTypeName())
-            tagAttributesBundle[taggedValuesDomain] = tagAttributes
+            modificationBundle[taggedValuesDomain] = tagAttributes
 
             appliedStereotypeDomain = KnownDomainTypes.CreateAppliedStereotypeDomainNameForElement(extendedElement.GetElementTypeName())
             appliedStereotypeDomainModification = KnownAttributeModifications.CreateStereotypeEnumModification(appliedStereotypesEnumValues)
 
-            tagAttributesBundle[appliedStereotypeDomain] = [appliedStereotypeDomainModification]
+            modificationBundle[appliedStereotypeDomain] = [appliedStereotypeDomainModification]
 
-            taggedValuesAndStereotypesBundle[extendedElement.GetElementDomain().name] = [
+            modificationBundle[extendedElement.GetElementDomain().name] = [
                 KnownAttributeModifications.CreateTaggedValuesModification(taggedValuesDomain),
                 KnownAttributeModifications.CreateStereotypesListModification(appliedStereotypeDomain)
             ]
-            taggedValuesAndStereotypesBundle[appliedStereotypeDomain] = []
-            taggedValuesAndStereotypesBundle[taggedValuesDomain] = []
 
-        extendedElements = stereotypesPerMetaclass.keys()
-        return CProfilePackageTransformation(tagAttributesBundle, taggedValuesAndStereotypesBundle, extendedElements)
+        return modificationBundle
 
     @classmethod
     def __GetStereotypesPerMetaclass(cls, profilePackage):

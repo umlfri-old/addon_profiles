@@ -45,18 +45,14 @@ class CProfileManager(object):
             bundles = {}
             profileApplications = []
             for profile in profiles:
-                transformation = self.__profilePackageTransformer.TransformPackageToModificationBundle(profile)
+                modificationBundle = self.__profilePackageTransformer.TransformPackageToModificationBundle(profile)
                 modificationBundleName = self.__CreateProfileApplicationBundleName(element, profile.GetPackageElement())
                 profileApplicationBundle = (
                     modificationBundleName,
-                    transformation.GetTagAttributesBundle()
+                    modificationBundle
                 )
 
-                miscBundle = (
-                    modificationBundleName + '_misc',
-                    transformation.GetTaggedValuesAndStereotypesBundle()
-                )
-                bundles.update(dict([profileApplicationBundle, miscBundle]))
+                bundles.update(dict([profileApplicationBundle]))
 
                 profileApplication = self.__CreateProfileApplicationProperties(modificationBundleName, profile)
                 profileApplications.append(profileApplication)
