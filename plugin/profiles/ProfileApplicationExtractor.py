@@ -1,17 +1,13 @@
 from ast import literal_eval
-from ProfileApplication import CProfileApplication
 from DomainTypes import KnownAttributes
+from ProfileApplicationMapper import CProfileApplicationMapper
 
 
 class CProfileApplicationExtractor(object):
 
+    __profileApplicationMapper = CProfileApplicationMapper()
+
     def ExtractApplications(self, packageElement):
         rawListOfProfiles = packageElement.values[KnownAttributes.AppliedProfiles]
         listOfProfiles = literal_eval(rawListOfProfiles)
-        return [self.__CreateApplication(props) for props in listOfProfiles]
-
-    def __CreateApplication(self, props):
-        return CProfileApplication(
-            props[KnownAttributes.ProfileApplication.PackageID],
-            props[KnownAttributes.ProfileApplication.ProfileName],
-            props[KnownAttributes.ProfileApplication.ModificationBundle])
+        return [self.__profileApplicationMapper.CreateFromProperties(props) for props in listOfProfiles]
