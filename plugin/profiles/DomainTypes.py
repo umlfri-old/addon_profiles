@@ -18,6 +18,14 @@ class KnownAttributes:
     AppliedStereotypes = 'applied_stereotypes'
     Stereotype = 'stereotype'
 
+    AppliedProfiles = 'applied_profiles'
+
+    class ProfileApplication:
+        PackageID = 'package_id'
+        ProfileName = 'profile_name'
+        ModificationBundle = 'modification_bundle'
+
+
 class KnownAttributeModifications:
     @classmethod
     def CreateTagAttributeModification(cls, stereotype, tag):
