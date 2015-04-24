@@ -21,11 +21,19 @@ class CApplyProfilesExecutor(object):
         self.__availableProfiles = self.__profileManager.GetAvailableProfiles(projectRoot)
 
         self.__profileApplications = self.__profileApplicationDiscovery.DiscoverProfileApplications(projectRoot)
+        self.__profileApplications = self.__CreateLookupForProfileApplications(self.__profileApplications)
         self.__currentProfiles = self.__GetAppliedProfiles(self.__profileApplications, self.__availableProfiles)
         self.__newProfiles = None
 
+    @staticmethod
+    def __CreateLookupForProfileApplications(profileApplications):
+        return {
+            package: {application.GetProfilePackageID(): application for application in applications}
+            for package, applications in profileApplications.iteritems()
+        }
+
     def __GetAppliedProfiles(self, profileApplications, availableProfiles):
-        return {package: self.__profileManager.GetAppliedProfiles(applications, availableProfiles)
+        return {package: self.__profileManager.GetAppliedProfiles(applications.itervalues(), availableProfiles)
                 for package, applications in profileApplications.iteritems()}
 
     def GetAvailableProfiles(self):
@@ -46,12 +54,23 @@ class CApplyProfilesExecutor(object):
         newProfiles, unchangedProfiles, deletedProfiles = \
             self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
 
-        deletedProfileApplications = {element: self.__profileApplications[element] for element in deletedProfiles.iterkeys()}
+        deletedProfileApplications = self.__GetProfileApplications(deletedProfiles)
         self.__profileManager.RemoveProfiles(deletedProfileApplications)
 
-        unchangedProfileApplications = {element: self.__profileApplications[element] for element in unchangedProfiles.iterkeys()}
+        unchangedProfileApplications = self.__GetProfileApplications(unchangedProfiles)
         self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
         self.__profileManager.ApplyProfiles(newProfiles)
         # except Exception as error:
         #     raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
+
+    def __GetProfileApplications(self, profilesPerElement):
+        return {
+            element: list(self.__GetProfileApplicationsForProfiles(self.__profileApplications[element], profiles))
+            for element, profiles in profilesPerElement.iteritems()
+        }
+
+    def __GetProfileApplicationsForProfiles(self, profileApplications, profiles):
+        for profile in profiles:
+            if profile.GetUID() in profileApplications:
+                yield profileApplications[profile.GetUID()]
