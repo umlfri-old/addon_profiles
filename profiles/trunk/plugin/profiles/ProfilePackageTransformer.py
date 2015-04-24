@@ -24,11 +24,14 @@ class CProfilePackageTransformer(object):
             appliedStereotypeDomain = KnownDomainTypes.CreateAppliedStereotypeDomainNameForElement(extendedElement.GetElementTypeName())
             appliedStereotypeDomainModification = KnownAttributeModifications.CreateStereotypeEnumModification(appliedStereotypesEnumValues)
 
-            taggedValuesAndStereotypesBundle[appliedStereotypeDomain] = [appliedStereotypeDomainModification]
+            tagAttributesBundle[appliedStereotypeDomain] = [appliedStereotypeDomainModification]
+
             taggedValuesAndStereotypesBundle[extendedElement.GetElementDomain().name] = [
                 KnownAttributeModifications.CreateTaggedValuesModification(taggedValuesDomain),
                 KnownAttributeModifications.CreateStereotypesListModification(appliedStereotypeDomain)
             ]
+            taggedValuesAndStereotypesBundle[appliedStereotypeDomain] = []
+            taggedValuesAndStereotypesBundle[taggedValuesDomain] = []
 
         extendedElements = stereotypesPerMetaclass.keys()
         return CProfilePackageTransformation(tagAttributesBundle, taggedValuesAndStereotypesBundle, extendedElements)
