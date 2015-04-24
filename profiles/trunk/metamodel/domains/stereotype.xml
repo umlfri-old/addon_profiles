@@ -19,7 +19,13 @@
 					<Str/>
 				</Attribute>
         	    <Attribute id="type" name="Type" >
-					<Str/>
+					<Enum default="str">
+                        <Value>str</Value>
+                        <Value>int</Value>
+                        <Value>float</Value>
+                        <Value>bool</Value>
+                        <Value>text</Value>
+                    </Enum>
 				</Attribute>
         	    <Attribute id="default" name="Default" >
 					<Str/>
