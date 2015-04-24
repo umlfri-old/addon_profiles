@@ -1,6 +1,8 @@
 from ProfilePackageProcessor import CProfilePackageProcessor
 from OrphanedProfilePackage import COrphanedProfilePackage
 from ProfilePackageTransformer import CProfilePackageTransformer
+from DomainTypes import KnownAttributes
+from DomainObjectHelper import AppendItemsIntoList
 
 
 class CProfileManager(object):
@@ -34,22 +36,40 @@ class CProfileManager(object):
     def ApplyProfiles(self, elementProfiles):
         for element, profiles in elementProfiles.iteritems():
             bundles = {}
+            profileApplications = []
             for profile in profiles:
                 transformation = self.__profilePackageTransformer.TransformPackageToModificationBundle(profile)
+                modificationBundleName = self.__CreateProfileApplicationBundleName(element, profile.GetPackageElement())
                 profileApplicationBundle = (
-                    self.__CreateProfileApplicationBundleName(element, profile.GetPackageElement()),
+                    modificationBundleName,
                     transformation.GetTagAttributesBundle()
                 )
 
                 miscBundle = (
-                    profileApplicationBundle[0] + '_misc',
+                    modificationBundleName + '_misc',
                     transformation.GetTaggedValuesAndStereotypesBundle()
                 )
                 bundles.update(dict([profileApplicationBundle, miscBundle]))
 
-            element.modify_metamodel(bundles)
+                profileApplication = self.__CreateProfileApplicationProperties(modificationBundleName, profile)
+                profileApplications.append(profileApplication)
 
+            element.modify_metamodel(bundles)
+            self.__AddProfileApplications(element, profileApplications)
 
     @classmethod
     def __CreateProfileApplicationBundleName(cls, packageElement, profileElement):
         return 'profile_application_{0}_{1}'.format(packageElement.uid, profileElement.uid)
+
+    @classmethod
+    def __CreateProfileApplicationProperties(cls, modificationBundleName, profile):
+        # return CProfileApplication(profile.GetPackageElement().uid, profile.GetName(), modificationBundleName)
+        return {
+            KnownAttributes.ProfileApplication.PackageID: profile.GetPackageElement().uid,
+            KnownAttributes.ProfileApplication.ProfileName: profile.GetName(),
+            KnownAttributes.ProfileApplication.ModificationBundle: modificationBundleName
+        }
+
+    @classmethod
+    def __AddProfileApplications(cls, element, profileApplications):
+        AppendItemsIntoList(element, KnownAttributes.AppliedProfiles, profileApplications)
