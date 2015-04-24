@@ -30,6 +30,7 @@ class CProfileManager(object):
         for element, applications in profileApplications.iteritems():
             bundles = [a.GetModificationBundleName() for a in applications]
             element.revert_modifications(bundles)
+            self.__profileApplicationUpdater.RemoveProfileApplications(element, applications)
 
     def UpdateProfileApplications(self, profileApplications, profiles):
         self.RemoveProfiles(profileApplications)
