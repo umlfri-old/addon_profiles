@@ -8,6 +8,8 @@ class CAppliedProfilesDiffCalculator(object):
         def AddProfiles(dictionary, element, profiles):
             if not hasattr(profiles, '__iter__'):
                 profiles = [profiles]
+            if len(profiles) == 0:
+                return
             dictionary.setdefault(element, set()).update(profiles)
 
         def AddNewProfiles(element, profiles):
