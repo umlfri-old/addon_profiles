@@ -31,7 +31,14 @@ class CProfileManager(object):
             element.revert_modifications(bundles)
 
     def UpdateProfileApplications(self, profileApplications, profiles):
-        pass
+        self.RemoveProfiles(profileApplications)
+
+        elementProfiles = {}
+        for element, applications in profileApplications.iteritems():
+            appliedProfiles = [profiles[application.GetProfilePackageID()] for application in applications]
+            elementProfiles[element] = appliedProfiles
+
+        self.ApplyProfiles(elementProfiles)
 
     def ApplyProfiles(self, elementProfiles):
         for element, profiles in elementProfiles.iteritems():
