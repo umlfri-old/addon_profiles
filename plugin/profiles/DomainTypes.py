@@ -29,13 +29,14 @@ class KnownAttributes:
 class KnownAttributeModifications:
     @classmethod
     def CreateTagAttributeModification(cls, stereotype, tag):
+        stereotypeName = stereotype.GetName()
         return {
             'modification_type': 'replace',
-            'attribute_id': '{0}_{1}'.format(stereotype.GetName().lower(), tag.GetName().lower()),
+            'attribute_id': '{0}_{1}'.format(stereotypeName.lower(), tag.GetName().lower()),
             'attribute_properties': {
                 'name': tag.GetName(),
                 'type': tag.GetType(),
-                # 'condition': '#self._Parent'
+                'condition': '#any(True for s in self._Parent.applied_stereotypes if s.stereotype == "{0}")'.format(stereotypeName)
             }
         }
 
