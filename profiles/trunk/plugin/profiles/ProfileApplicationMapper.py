@@ -9,3 +9,10 @@ class CProfileApplicationMapper(object):
             properties[KnownAttributes.ProfileApplication.PackageID],
             properties[KnownAttributes.ProfileApplication.ProfileName],
             properties[KnownAttributes.ProfileApplication.ModificationBundle])
+
+    def ConvertToProperties(self, profileApplication):
+        return {
+            KnownAttributes.ProfileApplication.PackageID: profileApplication.GetProfilePackageID(),
+            KnownAttributes.ProfileApplication.ProfileName: profileApplication.GetProfileName(),
+            KnownAttributes.ProfileApplication.ModificationBundle: profileApplication.GetModificationBundleName()
+        }
