@@ -14,7 +14,7 @@ class CAppliedProfileEditor(object):
 
         appliedProfiles = applyProfilesExecutor.GetCurrentProfiles()
         availableProfiles = applyProfilesExecutor.GetAvailableProfiles()
-        dialog = CProfileListDialog(projectRoot, appliedProfiles, availableProfiles)
+        dialog = CProfileListDialog(projectRoot, appliedProfiles, list(availableProfiles))
         if not dialog.Show():
             return
 
