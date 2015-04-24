@@ -20,4 +20,5 @@ class CAppliedProfileEditor(object):
 
         applyProfilesExecutor.SetAppliedProfiles(appliedProfiles)
 
-        applyProfilesExecutor.ApplyProfiles()
+        with self.__interface.transaction:
+            applyProfilesExecutor.ApplyProfiles()

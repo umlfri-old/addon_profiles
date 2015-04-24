@@ -13,7 +13,7 @@ class CExtendedElement(object):
         return self.elementType.domain
 
     def __hash__(self):
-        return self.elementTypeName
+        return self.elementTypeName.__hash__()
 
     def __cmp__(self, other):
         if other is None:
