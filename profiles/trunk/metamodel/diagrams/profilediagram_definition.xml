@@ -6,6 +6,7 @@
     <Elements>
         <Item value="Note" />
         <Item value="Class (metaclass)" />
+        <Item value="Actor (metaclass)" />
         <Item value="Metaclass" />
         <Item value="Stereotype" />
     </Elements>
