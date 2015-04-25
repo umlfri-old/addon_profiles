@@ -2,8 +2,11 @@
     <Attribute id="name" name="Name" hidden="true">
 		<Str/>
 	</Attribute>
-    <Attribute id="metaclass_name" name="Metaclass name" hidden="true">
-        <Str/>
+    <Attribute id="metaclass_name" name="Metaclass">
+        <Enum>
+            <Value>Class</Value>
+            <Value>Actor</Value>
+        </Enum>
     </Attribute>
     <Attribute id="note" name="Note" >
 		<Text/>
