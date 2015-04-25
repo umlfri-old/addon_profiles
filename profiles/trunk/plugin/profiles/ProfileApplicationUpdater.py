@@ -20,6 +20,7 @@ class CProfileApplicationUpdater(object):
     def RemoveProfileApplications(self, element, profileApplications):
         values = literal_eval(element.values[KnownAttributes.AppliedProfiles])
         indexes = self.__FindIndexes(values, profileApplications)
+        indexes = sorted(indexes, key=lambda x: x[0], reverse=True)
         for index, application in indexes:
             path = '{0}[{1}]'.format(KnownAttributes.AppliedProfiles, index)
             element.remove_item(path)
