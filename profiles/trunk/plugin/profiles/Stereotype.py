@@ -1,3 +1,6 @@
+from DomainTypes import KnownAttributes
+
+
 class CStereotype(object):
     def __init__(self, stereotypeElement, extensions, tags, parentStereotype=None):
         self.stereotypeElement = stereotypeElement
@@ -18,3 +21,6 @@ class CStereotype(object):
 
     def GetName(self):
         return self.stereotypeElement.name
+
+    def GetIcon(self):
+        return self.stereotypeElement.values[KnownAttributes.Stereotype.Icon]
