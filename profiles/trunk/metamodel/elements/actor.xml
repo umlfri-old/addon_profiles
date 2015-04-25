@@ -33,6 +33,23 @@
                 </Align>
             </HBox>
         </HBox>
+        <Label position="right+100">
+            <Condition condition="#self._Attributes['tagged_values'] != None and any(self.tagged_values._Attributes)">
+                <HBox>
+                    <Padding padding="5">
+                        <HBox>
+                            <Loop collection="#!({'key': key, 'value': value} for key, value in self.tagged_values)">
+                                <VBox>
+                                    <TextBox text="#self.tagged_values._Attributes[key].Name" color="#cfg.Styles.Element.TextColor"/>
+                                    <TextBox text=": " color="#cfg.Styles.Element.TextColor"/>
+                                    <TextBox text="#value" color="#cfg.Styles.Element.TextColor"/>
+                                </VBox>
+                            </Loop>
+                        </HBox>
+                    </Padding>
+                </HBox>
+            </Condition>
+        </Label>
     </Appearance>
     <Options>
     </Options>
