@@ -62,6 +62,8 @@ class CApplyProfilesExecutor(object):
         self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
         self.__profileManager.ApplyProfiles(newProfiles)
+
+        self.__profileManager.UpdateStereotypeIconMappings(self.__project, self.__newProfiles)
         # except Exception as error:
         #     raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
 
