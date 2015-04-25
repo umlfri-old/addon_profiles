@@ -16,7 +16,7 @@ class KnownDomainTypes:
 class KnownAttributes:
     TaggedValues = 'tagged_values'
     AppliedStereotypes = 'applied_stereotypes'
-    Stereotype = 'stereotype'
+    AppliedStereotypeName = 'stereotype'
 
     AppliedProfiles = 'applied_profiles'
 
@@ -69,7 +69,7 @@ class KnownAttributeModifications:
     def CreateStereotypeEnumModification(cls, stereotypeEnumValues):
         return {
             'modification_type': 'replace',
-            'attribute_id': KnownAttributes.Stereotype,
+            'attribute_id': KnownAttributes.AppliedStereotypeName,
             'attribute_properties': {
                 'name': 'Stereotype',
                 'type': 'enum',
