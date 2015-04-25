@@ -12,3 +12,11 @@ def AppendItemsIntoList(element, attributeID, items):
         for key, value in item.iteritems():
             path = '{0}.{1}'.format(pathToItem, key)
             element.values[path] = value
+
+
+def RemoveAllItemsFromList(object, attributeID):
+    path = '{0}.@length'.format(attributeID)
+    length = object.values[path]
+    path = '{0}[0]'.format(attributeID)
+    for i in range(length):
+        object.remove_item(path)
