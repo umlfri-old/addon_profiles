@@ -17,10 +17,11 @@ class CApplyProfilesExecutor(object):
     __profileApplicationDiscovery = CProfileApplicationDiscovery()
     __appliedProfilesDiffCalculator = CAppliedProfilesDiffCalculator()
 
-    def __init__(self, projectRoot):
-        self.__availableProfiles = self.__profileManager.GetAvailableProfiles(projectRoot)
+    def __init__(self, project):
+        self.__project = project
+        self.__availableProfiles = self.__profileManager.GetAvailableProfiles(project.root)
 
-        self.__profileApplications = self.__profileApplicationDiscovery.DiscoverProfileApplications(projectRoot)
+        self.__profileApplications = self.__profileApplicationDiscovery.DiscoverProfileApplications(project.root)
         self.__profileApplications = self.__CreateLookupForProfileApplications(self.__profileApplications)
         self.__currentProfiles = self.__GetAppliedProfiles(self.__profileApplications, self.__availableProfiles)
         self.__newProfiles = None
