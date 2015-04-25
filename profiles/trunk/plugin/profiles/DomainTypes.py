@@ -25,6 +25,20 @@ class KnownAttributes:
         ProfileName = 'profile_name'
         ModificationBundle = 'modification_bundle'
 
+    class Stereotype:
+        Icon = 'icon'
+        TagsAttribute = 'tags'
+
+        class Tags:
+            Name = 'name'
+            Type = 'type'
+
+    StereotypeIconFileMappings = 'stereotype_icons'
+
+    class StereotypeIconFileMapping:
+        Stereotype = 'stereotype'
+        Filename = 'filename'
+
 
 class KnownAttributeModifications:
     @classmethod
