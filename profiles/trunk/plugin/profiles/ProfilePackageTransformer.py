@@ -11,7 +11,7 @@ class CProfilePackageTransformer(object):
             # TODO: support for inherited tags
 
             tagAttributes = []
-            appliedStereotypesEnumValues = []
+            appliedStereotypesEnumValues = ['']
             for stereotype in stereotypes:
                 tagAttributes.extend(self.__CreateTagAttributes(stereotype))
                 appliedStereotypesEnumValues.append(stereotype.GetName())
