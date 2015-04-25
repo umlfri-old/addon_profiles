@@ -8,9 +8,10 @@ class CAppliedProfileEditor(object):
         self.__interface = interface
 
     def EditProfiles(self):
-        projectRoot = self.__interface.project.root
+        project = self.__interface.project
+        projectRoot = project.root
 
-        applyProfilesExecutor = CApplyProfilesExecutor(projectRoot)
+        applyProfilesExecutor = CApplyProfilesExecutor(project)
 
         appliedProfiles = applyProfilesExecutor.GetCurrentProfiles()
         availableProfiles = applyProfilesExecutor.GetAvailableProfiles()
