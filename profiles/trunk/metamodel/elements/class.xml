@@ -168,7 +168,7 @@
                             </Padding>
                         </HBox>
                     </Condition>
-                    <Condition condition="#self._Attributes['tagged_values'] != None">
+                    <Condition condition="#self._Attributes['tagged_values'] != None and any(self.tagged_values._Attributes)">
                         <HBox>
                             <Line type="horizontal" color="#cfg.Styles.Element.LineColor"/>
                             <Padding padding="5">
