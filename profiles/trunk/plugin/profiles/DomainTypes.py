@@ -37,7 +37,7 @@ class KnownAttributes:
 
     class StereotypeIconFileMapping:
         Stereotype = 'stereotype'
-        Filename = 'filename'
+        Filename = 'icon_path'
 
 
 class KnownAttributeModifications:

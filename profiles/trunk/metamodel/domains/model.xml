@@ -12,7 +12,7 @@
                 <Attribute id="stereotype" name="Stereotype">
                     <Str/>
                 </Attribute>
-                <Attribute id="filename" name="Filename">
+                <Attribute id="icon_path" name="Icon path">
                     <Str/>
                 </Attribute>
             </Domain>
