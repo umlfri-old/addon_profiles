@@ -3,6 +3,7 @@ from OrphanedProfilePackage import COrphanedProfilePackage
 from ProfilePackageTransformer import CProfilePackageTransformer
 from ProfileApplicationUpdater import CProfileApplicationUpdater
 from ProfileApplication import CProfileApplication
+from StereotypeIconMappingListUpdater import CStereotypeIconMappingListUpdater
 
 
 class CProfileManager(object):
@@ -10,6 +11,7 @@ class CProfileManager(object):
     __profilePackageProcessor = CProfilePackageProcessor()
     __profilePackageTransformer = CProfilePackageTransformer()
     __profileApplicationUpdater = CProfileApplicationUpdater()
+    __stereotypeIconMappingListUpdater = CStereotypeIconMappingListUpdater()
 
     def GetAvailableProfiles(self, packageElement):
         profilePackages = self.__profilePackageProcessor.ProcessPackage(packageElement)
@@ -61,6 +63,15 @@ class CProfileManager(object):
 
             element.modify_metamodel(bundles)
             self.__profileApplicationUpdater.AddProfileApplications(element, profileApplications)
+
+    def UpdateStereotypeIconMappings(self, project, appliedProfiles):
+        stereotypes = {}
+        for profiles in appliedProfiles.itervalues():
+            for profile in profiles:
+                for stereotype in profile.GetStereotypes():
+                    stereotypes[stereotype.GetName()] = stereotype
+
+        self.__stereotypeIconMappingListUpdater.UpdateIconList(project, stereotypes.values())
 
     @classmethod
     def __CreateProfileApplicationBundleName(cls, packageElement, profileElement):
