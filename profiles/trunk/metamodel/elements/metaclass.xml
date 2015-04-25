@@ -8,20 +8,22 @@
     <Appearance>
         <Shadow padding="3" color="#cfg.Styles.Element.ShadowColor">
             <Rectangle fill="#cfg.Styles.Element.FillColor" border="#cfg.Styles.Element.LineColor">
-                <Align align="center, center">
-                    <HBox>
-                        <Align align="center">
-                            <VBox>
-                                <TextBox text="&#171;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
-                                <TextBox text="metaclass" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
-                                <TextBox text="&#187;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
-                            </VBox>
-                        </Align>
-                        <Align align="center">
-                            <TextBox text="#self.metaclass_name" font="#cfg.Styles.Element.NameTextFont" color="#cfg.Styles.Element.NameTextColor"/>
-                        </Align>
-                    </HBox>
-                </Align>
+                <Padding padding="5">
+                    <Align align="center, center">
+                        <HBox>
+                            <Align align="center">
+                                <VBox>
+                                    <TextBox text="&#171;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                    <TextBox text="metaclass" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                    <TextBox text="&#187;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                </VBox>
+                            </Align>
+                            <Align align="center">
+                                <TextBox text="#self.metaclass_name" font="#cfg.Styles.Element.NameTextFont" color="#cfg.Styles.Element.NameTextColor"/>
+                            </Align>
+                        </HBox>
+                    </Align>
+                </Padding>
             </Rectangle>
         </Shadow>
     </Appearance>
