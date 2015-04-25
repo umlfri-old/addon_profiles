@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ElementAlias id="Class (metaclass)" alias="Metaclass" xmlns="http://umlfri.kst.fri.uniza.sk/xmlschema/metamodel.xsd">
-    <Icon path="icons/interface.png" />
+    <Icon path="icons/class.png" />
     <DefaultValues>
         <Item path="metaclass_name" value="Class" />
     </DefaultValues>
