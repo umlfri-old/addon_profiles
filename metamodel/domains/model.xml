@@ -6,4 +6,16 @@
 	<Attribute id="note" name="Note" >
 		<Text/>
 	</Attribute>
+    <Attribute id="stereotype_icons" name="Stereotype icons" hidden="true">
+        <List>
+            <Domain>
+                <Attribute id="stereotype" name="Stereotype">
+                    <Str/>
+                </Attribute>
+                <Attribute id="filename" name="Filename">
+                    <Str/>
+                </Attribute>
+            </Domain>
+        </List>
+    </Attribute>
 </Domain>
