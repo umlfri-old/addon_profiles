@@ -6,6 +6,7 @@ from ElementTypes import KnownElementTypes
 from ConnectionTypes import KnownConnectionTypes
 from ExtendedElement import CExtendedElement
 from Extension import CExtension
+from DomainTypes import KnownAttributes
 
 
 class CProfilePackageProcessor(object):
@@ -49,8 +50,10 @@ class CProfilePackageProcessor(object):
 
     @staticmethod
     def __CreateTags(stereotypeElement):
-        rawTagValues = literal_eval(stereotypeElement.values['tags'])
-        return [CTag(rawTag['name'], rawTag['type']) for rawTag in rawTagValues]
+        rawTagValues = literal_eval(stereotypeElement.values[KnownAttributes.Stereotype.TagsAttribute])
+        return [
+            CTag(rawTag[KnownAttributes.Stereotype.Tags.Name], rawTag[KnownAttributes.Stereotype.Tags.Type])
+            for rawTag in rawTagValues]
 
     @classmethod
     def __GetExtensions(cls, stereotypeElement):
