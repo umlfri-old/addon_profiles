@@ -10,6 +10,7 @@
     <property name="default_width">600</property>
     <property name="default_height">400</property>
     <property name="type_hint">dialog</property>
+    <signal name="show" handler="profileListDialog_show_event" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
