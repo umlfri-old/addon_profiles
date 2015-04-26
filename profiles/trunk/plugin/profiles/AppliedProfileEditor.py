@@ -1,5 +1,5 @@
 from gui import CProfileListDialog
-from ApplyProfilesExecutor import CApplyProfilesExecutor
+from ApplyProfilesExecutor import CApplyProfilesExecutor, ApplyProfilesExecutorError
 
 
 class CAppliedProfileEditor(object):
@@ -21,5 +21,10 @@ class CAppliedProfileEditor(object):
 
         applyProfilesExecutor.SetAppliedProfiles(appliedProfiles)
 
-        with self.__interface.transaction:
-            applyProfilesExecutor.ApplyProfiles()
+        try:
+            with self.__interface.transaction:
+                applyProfilesExecutor.ApplyProfiles()
+        except ApplyProfilesExecutorError as e:
+            print(repr(e.GetInnerException()))
+            self.__interface.gui_manager.display_warning(
+                'Error occurred while applying profiles: \n\n{0}'.format(e.GetInnerExceptionMessage()))

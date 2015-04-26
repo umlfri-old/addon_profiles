@@ -4,11 +4,31 @@ from AppliedProfilesDiffCalculator import CAppliedProfilesDiffCalculator
 
 
 class ApplyProfilesExecutorError(Exception):
-    pass
+
+    def GetMessage(self):
+        if self.message:
+            return self.message
+        if len(self.args) > 0:
+            return self.args[-1]
+        else:
+            return ''
+
+    def GetInnerException(self):
+        if len(self.args) == 0:
+            return None
+        else:
+            return self.args[0]
+
+    def GetInnerExceptionMessage(self):
+        innerException = self.GetInnerException()
+        if innerException is None:
+            return self.GetMessage()
+
+        return repr(innerException)
 
 
 class NewProfilesNotSpecifiedError(ApplyProfilesExecutorError):
-    pass
+    message = 'New profiles not specified, there is nothing to apply'
 
 
 class CApplyProfilesExecutor(object):
@@ -51,21 +71,21 @@ class CApplyProfilesExecutor(object):
         if self.__newProfiles is None:
             raise NewProfilesNotSpecifiedError()
 
-        # try:
-        newProfiles, unchangedProfiles, deletedProfiles = \
-            self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
+        try:
+            newProfiles, unchangedProfiles, deletedProfiles = \
+                self.__appliedProfilesDiffCalculator.CalculateDiff(self.__currentProfiles, self.__newProfiles)
 
-        deletedProfileApplications = self.__GetProfileApplications(deletedProfiles)
-        self.__profileManager.RemoveProfiles(deletedProfileApplications)
+            deletedProfileApplications = self.__GetProfileApplications(deletedProfiles)
+            self.__profileManager.RemoveProfiles(deletedProfileApplications)
 
-        unchangedProfileApplications = self.__GetProfileApplications(unchangedProfiles)
-        self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
+            unchangedProfileApplications = self.__GetProfileApplications(unchangedProfiles)
+            self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
-        self.__profileManager.ApplyProfiles(newProfiles)
+            self.__profileManager.ApplyProfiles(newProfiles)
 
-        self.__profileManager.UpdateStereotypeIconMappings(self.__project, self.__newProfiles)
-        # except Exception as error:
-        #     raise ApplyProfilesExecutorError("Error occured while changing profile applications", error)
+            self.__profileManager.UpdateStereotypeIconMappings(self.__project, self.__newProfiles)
+        except Exception as error:
+            raise ApplyProfilesExecutorError(error, "Error occurred while changing profile applications")
 
     def __GetProfileApplications(self, profilesPerElement):
         return {
