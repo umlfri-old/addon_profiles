@@ -9,7 +9,7 @@ class CProfileListDialog(object):
 
     gladeFile = os.path.join(os.path.dirname(__file__), "profileListDialog.glade")
 
-    def __init__(self, projectRoot, appliedProfiles, availableProfiles):
+    def __init__(self, projectRoot, appliedProfiles, availableProfiles, orphanedProfileApplications=None):
         self.projectRoot = projectRoot
         self.availableProfiles = availableProfiles
 
