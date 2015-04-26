@@ -2,6 +2,7 @@ import os
 from imports.gtk2 import gtk, gobject
 from SelectProfilesDialog import CSelectProfilesDialog
 from ..ElementTypes import KnownElementTypes
+from OrphanedProfileApplicationDeletionConfirmation import COrphanedProfileApplicationDeletionConfirmation
 from util import FixTreeViewSelectionOnRightClick
 
 
@@ -20,6 +21,7 @@ class CProfileListDialog(object):
             'tvProfiles_button_press_event': self.tvProfiles_button_press_event_handler,
             'addProfileMenuItem_activate_event': self.addProfileMenuItem_activate_event_handler,
             'removeProfileMenuItem_activate_event': self.removeProfileMenuItem_activate_event_handler,
+            'profileListDialog_show_event': self.profileListDialog_show_event_handler,
         }
 
         self.wTree.connect_signals(signals)
@@ -39,6 +41,7 @@ class CProfileListDialog(object):
         self.__removeProfileMenuItem = self.wTree.get_object('removeProfileMenuItem')
 
         self.__packageProfiles = appliedProfiles
+        self.__orphanedProfileApplications = orphanedProfileApplications
 
     def Show(self):
         self.__FillProjectTree()
@@ -124,9 +127,27 @@ class CProfileListDialog(object):
         profile, = self.__profileListStore.get(iter, 1)
         self.__profileListStore.remove(iter)
         self.__GetPackageProfiles().remove(profile)
+        self.__dialog.response(0)
 
     def __GetPackageProfiles(self, package=None):
         if package is None:
             package = self.__GetSelectedProjectElement()
 
         return self.__packageProfiles.setdefault(package, set())
+
+    def profileListDialog_show_event_handler(self, widget):
+        if self.__orphanedProfileApplications is not None and len(self.__orphanedProfileApplications) > 0:
+            self.__DisplayWarningForOrphanedProfiles(self.__orphanedProfileApplications)
+            self.__orphanedProfileApplications = None
+
+    def __DisplayWarningForOrphanedProfiles(self, orphanedProfileApplications):
+        confirmation = COrphanedProfileApplicationDeletionConfirmation(orphanedProfileApplications, self.__dialog)
+        if confirmation.GetConfirmation() == True:
+            self.__RemoveOrphanedApplications(orphanedProfileApplications)
+        else:
+            gobject.timeout_add(15, lambda: self.__dialog.response(1))
+
+    def __RemoveOrphanedApplications(self, orphanedProfileApplications):
+        for package, profileApplications in orphanedProfileApplications.iteritems():
+            for orphanedProfileApplication in profileApplications:
+                self.__GetPackageProfiles(package).remove(orphanedProfileApplication)
