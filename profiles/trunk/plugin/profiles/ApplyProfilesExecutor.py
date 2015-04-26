@@ -60,8 +60,13 @@ class CApplyProfilesExecutor(object):
 
     @staticmethod
     def __GetOrphanedProfileApplications(appliedProfiles):
-        return {package: [p for p in profiles if p.IsOrphaned()]
-            for package, profiles in appliedProfiles.iteritems()}
+        orphanedProfileApplications = {}
+        for package, profiles in appliedProfiles.iteritems():
+            orphaned = [p for p in profiles if p.IsOrphaned()]
+            if len(orphaned) > 0:
+                orphanedProfileApplications[package] = orphaned
+
+        return orphanedProfileApplications
 
     def GetAvailableProfiles(self):
         for profile in self.__availableProfiles.itervalues():
@@ -87,7 +92,7 @@ class CApplyProfilesExecutor(object):
             deletedProfileApplications = self.__GetProfileApplications(deletedProfiles)
             self.__profileManager.RemoveProfiles(deletedProfileApplications)
 
-            unchangedProfileApplications = self.__GetProfileApplications(unchangedProfiles)
+            unchangedProfileApplications = self.__GetProfileApplications(unchangedProfiles, False)
             self.__profileManager.UpdateProfileApplications(unchangedProfileApplications, self.__availableProfiles)
 
             self.__profileManager.ApplyProfiles(newProfiles)
@@ -96,13 +101,14 @@ class CApplyProfilesExecutor(object):
         except Exception as error:
             raise ApplyProfilesExecutorError(error, "Error occurred while changing profile applications")
 
-    def __GetProfileApplications(self, profilesPerElement):
+    def __GetProfileApplications(self, profilesPerElement, keepOrphanedApplications=True):
         return {
-            element: list(self.__GetProfileApplicationsForProfiles(self.__profileApplications[element], profiles))
+            element: list(self.__GetProfileApplicationsForProfiles(self.__profileApplications[element], profiles,
+                                                                   keepOrphanedApplications))
             for element, profiles in profilesPerElement.iteritems()
         }
 
-    def __GetProfileApplicationsForProfiles(self, profileApplications, profiles):
+    def __GetProfileApplicationsForProfiles(self, profileApplications, profiles, keepOrphanedApplications=True):
         for profile in profiles:
-            if profile.GetUID() in profileApplications:
+            if profile.GetUID() in profileApplications and (not profile.IsOrphaned() or keepOrphanedApplications):
                 yield profileApplications[profile.GetUID()]
