@@ -108,7 +108,7 @@ class CApplyProfilesExecutor(object):
             for element, profiles in profilesPerElement.iteritems()
         }
 
-    def __GetProfileApplicationsForProfiles(self, profileApplications, profiles, keepOrphanedApplications=True):
-        for profile in profiles:
-            if profile.GetUID() in profileApplications and (not profile.IsOrphaned() or keepOrphanedApplications):
-                yield profileApplications[profile.GetUID()]
+    def __GetProfileApplicationsForProfiles(self, profileApplications, appliedProfiles, keepOrphanedApplications=True):
+        for appliedProfile in appliedProfiles:
+            if appliedProfile.GetUID() in profileApplications and (not appliedProfile.IsOrphaned() or keepOrphanedApplications):
+                yield profileApplications[appliedProfile.GetUID()]
