@@ -44,6 +44,7 @@ class CApplyProfilesExecutor(object):
         self.__profileApplications = self.__profileApplicationDiscovery.DiscoverProfileApplications(project.root)
         self.__profileApplications = self.__CreateLookupForProfileApplications(self.__profileApplications)
         self.__currentProfiles = self.__GetAppliedProfiles(self.__profileApplications, self.__availableProfiles)
+        self.__orphanedProfileApplications = self.__GetOrphanedProfileApplications(self.__currentProfiles)
         self.__newProfiles = None
 
     @staticmethod
@@ -57,12 +58,20 @@ class CApplyProfilesExecutor(object):
         return {package: self.__profileManager.GetAppliedProfiles(applications.itervalues(), availableProfiles)
                 for package, applications in profileApplications.iteritems()}
 
+    @staticmethod
+    def __GetOrphanedProfileApplications(appliedProfiles):
+        return {package: [p for p in profiles if p.IsOrphaned()]
+            for package, profiles in appliedProfiles.iteritems()}
+
     def GetAvailableProfiles(self):
         for profile in self.__availableProfiles.itervalues():
             yield profile
 
     def GetCurrentProfiles(self):
         return {element: set(profiles) for element, profiles in self.__currentProfiles.iteritems()}
+
+    def GetOrphanedProfileApplications(self):
+        return self.__orphanedProfileApplications
 
     def SetAppliedProfiles(self, profiles):
         self.__newProfiles = profiles
