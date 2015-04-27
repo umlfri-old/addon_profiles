@@ -6,6 +6,7 @@
         <Enum>
             <Value>Class</Value>
             <Value>Actor</Value>
+            <Value>Object</Value>
         </Enum>
     </Attribute>
     <Attribute id="note" name="Note" >
