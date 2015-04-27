@@ -14,17 +14,19 @@
         <Shadow padding="3" color="#cfg.Styles.Element.ShadowColor">
             <Rectangle fill="#cfg.Styles.Element.FillColor" border="#cfg.Styles.Element.LineColor">
                 <HBox>
-                    <Padding padding="5">
-                        <Align align="right">
-                            <VBox>
-                                <Loop collection="#model.stereotype_icons">
-                                    <Condition condition="#stereotype in (s.stereotype for s in self.applied_stereotypes)">
-                                        <Icon filename="#icon_path" />
-                                    </Condition>
-                                </Loop>
-                            </VBox>
-                        </Align>
-                    </Padding>
+                    <Condition condition="#self._Attributes['applied_stereotypes'] != None and any(s.stereotype in (sm.stereotype for sm in model.stereotype_icons) for s in self.applied_stereotypes)">
+                        <Padding padding="5">
+                            <Align align="right">
+                                <VBox>
+                                    <Loop collection="#model.stereotype_icons">
+                                        <Condition condition="#stereotype in (s.stereotype for s in self.applied_stereotypes)">
+                                            <Icon filename="#icon_path" />
+                                        </Condition>
+                                    </Loop>
+                                </VBox>
+                            </Align>
+                        </Padding>
+                    </Condition>
                     <Padding padding="5">
                         <HBox>
                             <Condition condition="#self.stereotype">
