@@ -8,6 +8,7 @@
             <Value>Actor</Value>
             <Value>Object</Value>
             <Value>UseCase</Value>
+            <Value>State</Value>
         </Enum>
     </Attribute>
     <Attribute id="note" name="Note" >
