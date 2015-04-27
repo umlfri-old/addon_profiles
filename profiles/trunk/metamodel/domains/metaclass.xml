@@ -9,6 +9,7 @@
             <Value>Object</Value>
             <Value>UseCase</Value>
             <Value>State</Value>
+            <Value>Activity</Value>
         </Enum>
     </Attribute>
     <Attribute id="note" name="Note" >
