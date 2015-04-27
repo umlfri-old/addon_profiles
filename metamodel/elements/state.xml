@@ -21,12 +21,42 @@
                                     </VBox>
                                 </Align>
                             </Condition>
+                            <Condition condition="#self._Attributes['applied_stereotypes'] != None and len(self.applied_stereotypes) > 0">
+                                <Align align="center">
+                                    <VBox>
+                                        <TextBox text="&#171;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                        <TextBox text="#self.applied_stereotypes[0].stereotype" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                        <Loop collection="#self.applied_stereotypes[1:]">
+                                            <VBox>
+                                                <TextBox text=", " font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                                <TextBox text="#stereotype" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                            </VBox>
+                                        </Loop>
+                                        <TextBox text="&#187;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                    </VBox>
+                                </Align>
+                            </Condition>
                             <Align align="center">
                                 <TextBox text="#self.name" font="#cfg.Styles.Element.NameTextFont" color="#cfg.Styles.Element.NameTextColor"/>
                             </Align>
                         </HBox>
                         </Padding>
                         <Line type="horizontal" color="#cfg.Styles.Element.LineColor"/>
+                        <Condition condition="#self._Attributes['tagged_values'] != None and any(self.tagged_values._Attributes)">
+                            <HBox>
+                                <Padding padding="5">
+                                    <HBox>
+                                        <Loop collection="#!({'key': key, 'value': value} for key, value in self.tagged_values)">
+                                            <VBox>
+                                                <TextBox text="#self.tagged_values._Attributes[key].Name" color="#cfg.Styles.Element.TextColor"/>
+                                                <TextBox text=": " color="#cfg.Styles.Element.TextColor"/>
+                                                <TextBox text="#value" color="#cfg.Styles.Element.TextColor"/>
+                                            </VBox>
+                                        </Loop>
+                                    </HBox>
+                                </Padding>
+                            </HBox>
+                        </Condition>
                     </HBox>
                 </Sizer>
             </Rectangle>
