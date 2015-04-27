@@ -38,6 +38,21 @@
                                     </VBox>
                                 </Align>
                             </Condition>
+                            <Condition condition="#self._Attributes['applied_stereotypes'] != None and len(self.applied_stereotypes) > 0">
+                                <Align align="center">
+                                    <VBox>
+                                        <TextBox text="&#171;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                        <TextBox text="#self.applied_stereotypes[0].stereotype" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                        <Loop collection="#self.applied_stereotypes[1:]">
+                                            <VBox>
+                                                <TextBox text=", " font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                                <TextBox text="#stereotype" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                            </VBox>
+                                        </Loop>
+                                        <TextBox text="&#187;" font="#cfg.Styles.Element.TextFont" color="#cfg.Styles.Element.TextColor"/>
+                                    </VBox>
+                                </Align>
+                            </Condition>
                             <Align align="center">
                                 <TextBox text="#self.name" font="#cfg.Styles.Element.NameTextFont.ChangeStyle('italic', self.abstract)" color="#cfg.Styles.Element.NameTextColor"/>
                             </Align>
