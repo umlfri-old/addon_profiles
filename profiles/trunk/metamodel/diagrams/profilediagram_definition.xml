@@ -8,6 +8,7 @@
         <Item value="Class (metaclass)" />
         <Item value="Actor (metaclass)" />
         <Item value="UseCase (metaclass)" />
+        <Item value="State (metaclass)" />
         <Item value="Metaclass" />
         <Item value="Stereotype" />
     </Elements>
