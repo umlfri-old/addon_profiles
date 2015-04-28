@@ -1,12 +1,13 @@
 from DomainTypes import KnownAttributes, KnownAttributeModifications, KnownDomainTypes
+from ModificationBundleObjectBuilder import CModificationBundleObjectBuilder
 
 
 class CProfilePackageTransformer(object):
 
-    def TransformPackageToModificationBundle(self, profilePackage):
+    def TransformPackageToModificationBundle(self, bundleName, profilePackage):
         stereotypesPerMetaclass = self.__GetStereotypesPerMetaclass(profilePackage)
 
-        modificationBundle = {}
+        bundleBuilder = CModificationBundleObjectBuilder(bundleName)
         for extendedElement, stereotypes in stereotypesPerMetaclass.iteritems():
             # TODO: support for inherited tags
 
@@ -17,19 +18,20 @@ class CProfilePackageTransformer(object):
                 appliedStereotypesEnumValues.append(stereotype.GetName())
 
             taggedValuesDomain = KnownDomainTypes.CreateTaggedValuesDomainNameForElement(extendedElement.GetElementTypeName())
-            modificationBundle[taggedValuesDomain] = tagAttributes
+            bundleBuilder.AppendDomainModifications(taggedValuesDomain, *tagAttributes)
 
             appliedStereotypeDomain = KnownDomainTypes.CreateAppliedStereotypeDomainNameForElement(extendedElement.GetElementTypeName())
             appliedStereotypeDomainModification = KnownAttributeModifications.CreateStereotypeEnumModification(appliedStereotypesEnumValues)
 
-            modificationBundle[appliedStereotypeDomain] = [appliedStereotypeDomainModification]
+            bundleBuilder.AppendDomainModifications(appliedStereotypeDomain, appliedStereotypeDomainModification)
 
-            modificationBundle[extendedElement.GetElementDomain().name] = [
+            elementDomainName = extendedElement.GetElementDomain().name
+            bundleBuilder.AppendDomainModifications(elementDomainName,
                 KnownAttributeModifications.CreateTaggedValuesModification(taggedValuesDomain),
                 KnownAttributeModifications.CreateStereotypesListModification(appliedStereotypeDomain)
-            ]
+            )
 
-        return modificationBundle
+        return bundleBuilder.BuildBundleObject()
 
     @classmethod
     def __GetStereotypesPerMetaclass(cls, profilePackage):
