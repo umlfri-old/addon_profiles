@@ -75,9 +75,9 @@ class CProfileManager(object):
 
     @classmethod
     def __CreateProfileApplicationBundleName(cls, packageElement, profileElement):
-        return 'profile_application_{0}_{1}'.format(packageElement.uid, profileElement.uid)
+        return 'profile_application_{0}_{1}'.format(packageElement.__id__, profileElement.__id__)
 
     @classmethod
     def __CreateProfileApplication(cls, modificationBundleName, profile):
-        return CProfileApplication(profile.GetPackageElement().uid, profile.GetName(), modificationBundleName)
+        return CProfileApplication(profile.GetPackageElement().__id__, profile.GetName(), modificationBundleName)
 
