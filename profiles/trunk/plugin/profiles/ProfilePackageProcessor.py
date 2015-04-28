@@ -39,10 +39,10 @@ class CProfilePackageProcessor(object):
         for element in stereotypes:
             tags = self.__CreateTags(element)
             extensions = self.__GetExtensions(element)
-            stereotypesDict[element.uid] = CStereotype(element, extensions, tags)
+            stereotypesDict[element.__id__] = CStereotype(element, extensions, tags)
 
         for element, stereotypeElements, childProfiles in profiles:
-            packageStereotypes = [stereotypesDict[s.uid] for s in stereotypeElements]
+            packageStereotypes = [stereotypesDict[s.__id__] for s in stereotypeElements]
             profile = CProfilePackage(element, packageStereotypes)
             profilePackages.append(profile)
 

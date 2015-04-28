@@ -8,7 +8,7 @@ class CProfilePackage(object):
         return False
 
     def GetUID(self):
-        return self.packageElement.uid
+        return self.packageElement.__id__
 
     def GetPackageElement(self):
         return self.packageElement
