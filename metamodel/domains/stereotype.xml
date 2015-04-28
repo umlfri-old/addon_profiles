@@ -2,16 +2,6 @@
     <Attribute id="name" name="Name" >
 		<Str/>
 	</Attribute>
-    <Attribute id="scope" name="Scope" >
-        <Enum default="Private">
-			<Value>Private</Value>
-	        <Value>Protected</Value>
-	        <Value>Public</Value>
-		</Enum>
-    </Attribute>
-    <Attribute id="abstract" name="Abstract" >
-		<Bool default="False"/>
-	</Attribute>
     <Attribute id="icon" name="Icon">
         <Enum>
             <Value>None</Value>
