@@ -46,17 +46,14 @@ class CProfileManager(object):
 
     def ApplyProfiles(self, elementProfiles):
         for element, profiles in elementProfiles.iteritems():
-            bundles = {}
+            bundles = []
             profileApplications = []
             for profile in profiles:
-                modificationBundle = self.__profilePackageTransformer.TransformPackageToModificationBundle(profile)
                 modificationBundleName = self.__CreateProfileApplicationBundleName(element, profile.GetPackageElement())
-                profileApplicationBundle = (
-                    modificationBundleName,
-                    modificationBundle
-                )
+                profileApplicationBundle = self.__profilePackageTransformer.TransformPackageToModificationBundle(
+                    modificationBundleName, profile)
 
-                bundles.update(dict([profileApplicationBundle]))
+                bundles.append(profileApplicationBundle)
 
                 profileApplication = self.__CreateProfileApplication(modificationBundleName, profile)
                 profileApplications.append(profileApplication)
