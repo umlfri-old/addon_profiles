@@ -2,11 +2,10 @@ from DomainTypes import KnownAttributes
 
 
 class CStereotype(object):
-    def __init__(self, stereotypeElement, extensions, tags, parentStereotype=None):
+    def __init__(self, stereotypeElement, extensions, tags):
         self.stereotypeElement = stereotypeElement
         self.extensions = extensions
         self.tags = tags
-        self.parentStereotype = parentStereotype
 
     def GetExtensions(self):
         for element in self.extensions:
