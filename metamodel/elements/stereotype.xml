@@ -19,7 +19,7 @@
                                 </VBox>
                             </Align>
                             <Align align="center">
-                                <TextBox text="#self.name" font="#cfg.Styles.Element.NameTextFont.ChangeStyle('italic', self.abstract)" color="#cfg.Styles.Element.NameTextColor"/>
+                                <TextBox text="#self.name" font="#cfg.Styles.Element.NameTextFont" color="#cfg.Styles.Element.NameTextColor"/>
                             </Align>
                         </HBox>
                     </Padding>
