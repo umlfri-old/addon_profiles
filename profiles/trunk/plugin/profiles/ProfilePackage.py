@@ -18,10 +18,3 @@ class CProfilePackage(object):
 
     def GetStereotypes(self):
         return self.stereotypes
-
-    def AddChildProfile(self, profilePackage):
-        self.childProfiles.append(profilePackage)
-
-    def GetChildProfiles(self):
-        for profile in self.childProfiles:
-            yield profile
