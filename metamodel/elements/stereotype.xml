@@ -36,12 +36,6 @@
                                                 <TextBox text="#type" color="#cfg.Styles.Element.TextColor"/>
                                             </VBox>
                                         </Condition>
-                                        <Condition condition="#default">
-                                            <VBox>
-                                                <TextBox text=" = " color="#cfg.Styles.Element.TextColor" />
-                                                <TextBox text="#default" color="#cfg.Styles.Element.TextColor" />
-                                            </VBox>
-                                        </Condition>
                                     </VBox>
                                 </Condition>
                             </Loop>
