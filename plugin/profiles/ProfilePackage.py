@@ -2,7 +2,6 @@ class CProfilePackage(object):
     def __init__(self, packageElement, stereotypes = None):
         self.packageElement = packageElement
         self.stereotypes = stereotypes or []
-        self.childProfiles = []
 
     def IsOrphaned(self):
         return False
