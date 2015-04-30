@@ -10,6 +10,7 @@
         <Item value="Actor (metaclass)" />
         <Item value="UseCase (metaclass)" />
         <Item value="State (metaclass)" />
+        <Item value="Activity (metaclass)" />
         <Item value="Note" />
     </Elements>
     <Connections>
