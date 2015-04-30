@@ -23,9 +23,6 @@
                         <Value>text</Value>
                     </Enum>
 				</Attribute>
-        	    <Attribute id="default" name="Default" >
-					<Str/>
-				</Attribute>
         	    <Attribute id="note" name="Note" >
 					<Text/>
 				</Attribute>
