@@ -3,7 +3,7 @@
     <Icon path="icons/class.png" />
     <Domain id="stereotype" identity="name" />
     <Connections>
-        <Item value="Extension" allowrecursive="0"/>
+        <Item value="Extension" allowrecursive="0" with="Metaclass"/>
     </Connections>
     <Appearance>
         <Shadow padding="3" color="#cfg.Styles.Element.ShadowColor">
