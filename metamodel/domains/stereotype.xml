@@ -9,6 +9,7 @@
             <Value>Wizard</Value>
             <Value>Map Location</Value>
             <Value>Loading</Value>
+            <Value>Question Mark</Value>
         </Enum>
     </Attribute>
     <Attribute id="tags" name="Tags" >
