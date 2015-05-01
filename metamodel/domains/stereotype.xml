@@ -10,6 +10,7 @@
             <Value>Map Location</Value>
             <Value>Loading</Value>
             <Value>Question Mark</Value>
+            <Value>Settings</Value>
         </Enum>
     </Attribute>
     <Attribute id="tags" name="Tags" >
