@@ -6,6 +6,9 @@
         <Enum>
             <Value>None</Value>
             <Value>Actor</Value>
+            <Value>Wizard</Value>
+            <Value>Map Location</Value>
+            <Value>Loading</Value>
         </Enum>
     </Attribute>
     <Attribute id="tags" name="Tags" >

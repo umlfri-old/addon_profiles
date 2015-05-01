@@ -6,3 +6,6 @@ def CreateIconFileMapping(name, filename):
 
 
 CreateIconFileMapping('Actor', 'actor_image.png')
+CreateIconFileMapping('Wizard', 'wizard.png')
+CreateIconFileMapping('Map Location', 'maps_location.png')
+CreateIconFileMapping('Loading', 'loading.png')
