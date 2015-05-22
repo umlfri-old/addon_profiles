@@ -127,7 +127,6 @@ class CProfileListDialog(object):
         profile, = self.__profileListStore.get(iter, 1)
         self.__profileListStore.remove(iter)
         self.__GetPackageProfiles().remove(profile)
-        self.__dialog.response(0)
 
     def __GetPackageProfiles(self, package=None):
         if package is None:
